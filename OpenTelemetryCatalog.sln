@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenTelemetryCatalog", "OpenTelemetryCatalog\OpenTelemetryCatalog.csproj", "{6CB9BA75-0A09-4CA9-8130-7A992D31C9C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerApi", "..\ConsumerApi\ConsumerApi.csproj", "{7F8171D6-47ED-4A71-A732-AA10D6BD4976}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerApi", "ConsumerApi\ConsumerApi.csproj", "{52490B80-7436-4991-8ECC-A6BDC7BAB004}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{6CB9BA75-0A09-4CA9-8130-7A992D31C9C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CB9BA75-0A09-4CA9-8130-7A992D31C9C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CB9BA75-0A09-4CA9-8130-7A992D31C9C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7F8171D6-47ED-4A71-A732-AA10D6BD4976}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F8171D6-47ED-4A71-A732-AA10D6BD4976}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F8171D6-47ED-4A71-A732-AA10D6BD4976}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F8171D6-47ED-4A71-A732-AA10D6BD4976}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52490B80-7436-4991-8ECC-A6BDC7BAB004}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52490B80-7436-4991-8ECC-A6BDC7BAB004}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52490B80-7436-4991-8ECC-A6BDC7BAB004}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52490B80-7436-4991-8ECC-A6BDC7BAB004}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
