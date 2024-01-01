@@ -1,4 +1,4 @@
-﻿namespace OpenTelemetryCatalog;
+﻿namespace Shared;
 
 public record ContractDto()
 {

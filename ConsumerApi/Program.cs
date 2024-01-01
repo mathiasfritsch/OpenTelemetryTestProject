@@ -1,36 +1,76 @@
 
-namespace ConsumerApi
+using MassTransit;
+using MassTransit.Logging;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
+
+namespace ConsumerApi;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        const string serviceName = "consumer-service";
+
+        var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
+        builder.Services.AddMassTransit(config =>
         {
-            var builder = WebApplication.CreateBuilder(args);
+            config.AddConsumer<MessageConsumer>();
 
-            // Add services to the container.
-
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            config.UsingRabbitMq((ctx, cfg) =>
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
+                cfg.Host("rabbitmq://localhost");
+                cfg.ConfigureEndpoints(ctx);
+            });
+        });
 
 
-            app.MapControllers();
+        builder.Logging.AddOpenTelemetry(options =>
+        {
+            options
+                .SetResourceBuilder(
+                    ResourceBuilder.CreateDefault()
+                        .AddService(serviceName))
+                .AddConsoleExporter();
+        });
 
-            app.Run();
+
+
+        builder.Services.AddOpenTelemetry()
+            .ConfigureResource(resource => resource.AddService(serviceName))
+            .WithTracing(tracing => tracing
+                .AddAspNetCoreInstrumentation()
+                .AddSource(DiagnosticHeaders.DefaultListenerName)
+                .AddConsoleExporter()
+                .AddOtlpExporter()
+            )
+            .WithMetrics(metrics => metrics
+                .AddAspNetCoreInstrumentation()
+                .AddConsoleExporter());
+
+
+        var app = builder.Build();
+
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
+
+        app.UseHttpsRedirection();
+
+        app.UseAuthorization();
+
+
+        app.MapControllers();
+
+        app.Run();
     }
 }
