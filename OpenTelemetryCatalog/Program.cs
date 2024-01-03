@@ -49,6 +49,7 @@ public class Program
                 .AddAspNetCoreInstrumentation()
                 .AddSource(DiagnosticHeaders.DefaultListenerName)
                 .AddNpgsql()
+                .AddEntityFrameworkCoreInstrumentation()
                 .AddConsoleExporter()
                 .AddOtlpExporter()
             )
