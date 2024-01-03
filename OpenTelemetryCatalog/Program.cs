@@ -1,5 +1,7 @@
 using MassTransit;
 using MassTransit.Logging;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
@@ -27,7 +29,8 @@ public class Program
                 cfg.ConfigureEndpoints(ctx);
             });
         });
-
+        builder.Services.AddDbContext<CatalogContext>(
+            );
 
         builder.Logging.AddOpenTelemetry(options =>
         {
@@ -45,6 +48,7 @@ public class Program
             .WithTracing(tracing => tracing
                 .AddAspNetCoreInstrumentation()
                 .AddSource(DiagnosticHeaders.DefaultListenerName)
+                .AddNpgsql()
                 .AddConsoleExporter()
                 .AddOtlpExporter()
             )
